@@ -1,73 +1,54 @@
-# Welcome to your Lovable project
+# Morocco 2030 Hub
 
-## Project info
+An ambitious project developed for the **Hackathon d’Incubation – Coupe du Monde 2030**, organized by **Maroc Hub Compétences**, in partnership with **AE INPT** and **Fikra**.
 
-**URL**: https://lovable.dev/projects/1d2e8cf0-8f54-49a6-87ef-b81616ae6940
+**Developed by:**
+- Alae Eddine Jahid
+- Anas Elwahabi
+- Mohammed Amine Raguig
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## 📚 About the Project
 
-**Use Lovable**
+**Morocco 2030 Hub** is a centralized digital platform designed to enhance the visitor experience for the **FIFA World Cup 2030** in Morocco.  
+This project aligns with the hackathon's vision: deploying **innovative, concrete solutions** that support this historic global event.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/1d2e8cf0-8f54-49a6-87ef-b81616ae6940) and start prompting.
+The platform serves as a **gateway for fans, tourists, and stakeholders**, offering seamless access to live updates, travel planning, cultural exploration, ticket management, and more.
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🚀 Current Features
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- **Modern Frontend Architecture**  
+  Structured, scalable, and fully ready for dynamic data integration.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Dynamic Sections**  
+  - Explore Moroccan cities hosting the World Cup.
+  - Discover tourist attractions, hotels, restaurants, and transport options.
+  - View upcoming matches and important event updates.
 
-Follow these steps:
+- **Smart Categorization**  
+  Category-based navigation (Attractions, Hotels, Restaurants, Transport) powered by reusable helpers.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+- **Interactive Map Placeholder**  
+  Ready for integration with Mapbox or similar services for a fully interactive map experience.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- **Clean Static Starter Version**  
+  All content is modular and linked to a centralized `helpers` file, ensuring maximum maintainability and scalability.
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## 📅 Next Steps (Post-Starter)
 
-**Edit a file directly in GitHub**
+- API integration for dynamic data (matches, scores, cultural events).
+- Real-time map with geolocated Points of Interest.
+- User authentication and personalized trip planners.
+- Advanced accessibility and multilingual support.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 🏆 Context
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Built with passion for the **Hackathon Maroc Hub Compétences 2025**, aiming to create innovative tech solutions for the **2030 FIFA World Cup** organization in Morocco.
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/1d2e8cf0-8f54-49a6-87ef-b81616ae6940) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)

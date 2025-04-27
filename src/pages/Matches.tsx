@@ -6,128 +6,12 @@ import NewsTicker from '../components/NewsTicker';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, Flag, Globe, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { MatchesHero, MatchesTabs, MatchesCalendarData, MatchesNews, MatchesGroups, LiveScores } from "@/helpers/Helper";
 
 const Matches = () => {
   const [selectedTab, setSelectedTab] = useState('calendar');
   
-  // Données factices pour le calendrier des matchs
-  const matchesByDate = {
-    "15 Juin 2030": [
-      {
-        time: "17:00",
-        team1: "Maroc",
-        team1Flag: "🇲🇦",
-        team2: "Espagne",
-        team2Flag: "🇪🇸",
-        group: "A",
-        stadium: "Stade Mohammed V",
-        city: "Casablanca"
-      },
-      {
-        time: "20:00",
-        team1: "France",
-        team1Flag: "🇫🇷",
-        team2: "Argentine",
-        team2Flag: "🇦🇷",
-        group: "B",
-        stadium: "Stade de Rabat",
-        city: "Rabat"
-      }
-    ],
-    "16 Juin 2030": [
-      {
-        time: "17:00",
-        team1: "Allemagne",
-        team1Flag: "🇩🇪",
-        team2: "Brésil",
-        team2Flag: "🇧🇷",
-        group: "C",
-        stadium: "Stade de Marrakech",
-        city: "Marrakech"
-      },
-      {
-        time: "20:00",
-        team1: "Portugal",
-        team1Flag: "🇵🇹",
-        team2: "Pays-Bas",
-        team2Flag: "🇳🇱",
-        group: "D",
-        stadium: "Grand Stade de Tanger",
-        city: "Tanger"
-      }
-    ],
-    "17 Juin 2030": [
-      {
-        time: "17:00",
-        team1: "Angleterre",
-        team1Flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
-        team2: "Italie",
-        team2Flag: "🇮🇹",
-        group: "E",
-        stadium: "Stade Adrar",
-        city: "Agadir"
-      },
-      {
-        time: "20:00",
-        team1: "Belgique",
-        team1Flag: "🇧🇪",
-        team2: "Croatie",
-        team2Flag: "🇭🇷",
-        group: "F",
-        stadium: "Stade de Fès",
-        city: "Fès"
-      }
-    ]
-  };
   
-  // Données factices pour les actualités
-  const news = [
-    {
-      id: 1,
-      title: "Le Maroc dévoile les plans des stades rénovés pour 2030",
-      date: "25 Avril 2025",
-      image: "https://images.unsplash.com/photo-1508098682722-e99c643e7f3b?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3",
-      excerpt: "Les plans de rénovation des six stades qui accueilleront les matchs de la Coupe du Monde 2030 ont été dévoilés aujourd'hui."
-    },
-    {
-      id: 2,
-      title: "La FIFA confirme le format à 48 équipes pour 2030",
-      date: "18 Avril 2025",
-      image: "https://images.unsplash.com/photo-1529629468183-b9c986feda2d?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3",
-      excerpt: "Le conseil de la FIFA a officiellement confirmé que le format à 48 équipes sera maintenu pour la Coupe du Monde 2030."
-    },
-    {
-      id: 3,
-      title: "Le programme des volontaires sera lancé en 2028",
-      date: "10 Avril 2025",
-      image: "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3",
-      excerpt: "Le comité d'organisation a annoncé que le programme de recrutement des volontaires débutera en janvier 2028."
-    },
-    {
-      id: 4,
-      title: "Les qualifications commenceront en mars 2028",
-      date: "5 Avril 2025",
-      image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3",
-      excerpt: "La FIFA a annoncé le calendrier des qualifications pour la Coupe du Monde 2030, qui débuteront en mars 2028."
-    }
-  ];
-  
-  // Données factices pour les groupes
-  const groups = {
-    "A": [
-      {team: "Maroc", flag: "🇲🇦", points: 9, played: 3, won: 3, draw: 0, lost: 0, gf: 7, ga: 1},
-      {team: "Espagne", flag: "🇪🇸", points: 6, played: 3, won: 2, draw: 0, lost: 1, gf: 5, ga: 2},
-      {team: "Canada", flag: "🇨🇦", points: 3, played: 3, won: 1, draw: 0, lost: 2, gf: 2, ga: 5},
-      {team: "Japon", flag: "🇯🇵", points: 0, played: 3, won: 0, draw: 0, lost: 3, gf: 1, ga: 7}
-    ],
-    "B": [
-      {team: "France", flag: "🇫🇷", points: 7, played: 3, won: 2, draw: 1, lost: 0, gf: 6, ga: 2},
-      {team: "Argentine", flag: "🇦🇷", points: 6, played: 3, won: 2, draw: 0, lost: 1, gf: 5, ga: 3},
-      {team: "Nigeria", flag: "🇳🇬", points: 4, played: 3, won: 1, draw: 1, lost: 1, gf: 3, ga: 3},
-      {team: "Australie", flag: "🇦🇺", points: 0, played: 3, won: 0, draw: 0, lost: 3, gf: 1, ga: 7}
-    ]
-  };
-
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -137,9 +21,9 @@ const Matches = () => {
         {/* Hero Banner */}
         <div className="bg-moroccan-red text-white py-12">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Matchs et Actualités</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{MatchesHero.title}</h1>
             <p className="max-w-2xl mx-auto opacity-90">
-              Suivez tous les matchs, résultats et les dernières actualités de la Coupe du Monde 2030.
+              {MatchesHero.description}
             </p>
           </div>
         </div>
@@ -151,15 +35,15 @@ const Matches = () => {
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="calendar" className="flex items-center gap-2">
                   <Calendar size={16} />
-                  <span>Calendrier</span>
+                  <span>{MatchesTabs.calendar}</span>
                 </TabsTrigger>
                 <TabsTrigger value="groups" className="flex items-center gap-2">
                   <Flag size={16} />
-                  <span>Groupes</span>
+                  <span>{MatchesTabs.groups}</span>
                 </TabsTrigger>
                 <TabsTrigger value="news" className="flex items-center gap-2">
                   <Globe size={16} />
-                  <span>Actualités</span>
+                  <span>{MatchesTabs.news}</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -177,7 +61,7 @@ const Matches = () => {
                   </div>
 
                   <div className="space-y-8">
-                    {Object.entries(matchesByDate).map(([date, matches]) => (
+                    {Object.entries(MatchesCalendarData).map(([date, matches]) => (
                       <div key={date}>
                         <h3 className="text-lg font-bold mb-4 py-2 border-b">{date}</h3>
                         <div className="space-y-4">
@@ -221,7 +105,7 @@ const Matches = () => {
               <TabsContent value="groups">
                 <div className="py-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {Object.entries(groups).map(([group, teams]) => (
+                    {Object.entries(MatchesGroups).map(([group, teams]) => (
                       <div key={group} className="card-morocco">
                         <div className="p-4 border-b">
                           <h3 className="font-bold">Groupe {group}</h3>
@@ -273,7 +157,7 @@ const Matches = () => {
               <TabsContent value="news">
                 <div className="py-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {news.map((item) => (
+                    {MatchesNews.map((item) => (
                       <div key={item.id} className="card-morocco flex flex-col md:flex-row overflow-hidden">
                         <div className="md:w-1/3 h-48 md:h-auto">
                           <img 
@@ -302,14 +186,14 @@ const Matches = () => {
         {/* Live Scores (Placeholder) */}
         <section className="py-10 bg-gray-50 dark:bg-moroccan-dark/80">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6">Scores en Direct</h2>
+            <h2 className="text-2xl font-bold mb-6">{LiveScores.LiveScoresTitle}</h2>
             
             <div className="bg-white dark:bg-moroccan-dark shadow-md rounded-xl p-6 text-center">
               <div className="text-lg">
-                Aucun match en cours actuellement
+                {LiveScores.LiveScoresTexts.noMatch}
               </div>
               <p className="text-gray-500 dark:text-gray-400 mt-2">
-                Les scores en direct seront disponibles pendant la compétition
+                {LiveScores.LiveScoresTexts.info}
               </p>
             </div>
           </div>
