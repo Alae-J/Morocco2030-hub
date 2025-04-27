@@ -1,13 +1,15 @@
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Sun, Moon, Menu, X, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { NavigationLinks, ButtonTexts } from '@/helpers/Helper';
+import { useLanguage } from "@/context/LanguageContext";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [language, setLanguage] = useState('FR');
+  const { language, toggleLanguage } = useLanguage(); 
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   
@@ -18,13 +20,6 @@ const Header = () => {
     } else {
       document.documentElement.classList.remove('dark');
     }
-  };
-  
-  const toggleLanguage = () => {
-    const languages = ['FR', 'EN', 'ES'];
-    const currentIndex = languages.indexOf(language);
-    const nextIndex = (currentIndex + 1) % languages.length;
-    setLanguage(languages[nextIndex]);
   };
 
   return (
@@ -45,24 +40,29 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
-            <Link to="/" className="font-medium hover:text-moroccan-red transition-colors">Accueil</Link>
-            <Link to="/tickets" className="font-medium hover:text-moroccan-red transition-colors">Billets</Link>
-            <Link to="/matches" className="font-medium hover:text-moroccan-red transition-colors">Matchs</Link>
-            <Link to="/tourism" className="font-medium hover:text-moroccan-red transition-colors">Tourisme</Link>
-            <Link to="/map" className="font-medium hover:text-moroccan-red transition-colors">Carte</Link>
+            {NavigationLinks.map((link) => (
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                className="font-medium hover:text-moroccan-red transition-colors"
+                onClick={toggleMenu} // for mobile
+              >
+                {link.name[language]}
+              </Link>
+            ))}
           </nav>
 
           {/* Actions */}
           <div className="hidden md:flex items-center space-x-3">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              onClick={toggleLanguage}
-              className="rounded-full"
-            >
-              <Globe size={18} />
-              <span className="ml-1 text-xs">{language}</span>
-            </Button>
+          <Button 
+            variant="ghost"
+            size="sm"
+            onClick={toggleLanguage}
+            className="flex items-center px-2 py-1 rounded-md transition"
+          >
+            <Globe size={16} className="mr-1" />
+            <span className="text-sm font-medium">{language}</span>
+          </Button>
             
             <Button 
               variant="ghost" 
@@ -74,7 +74,7 @@ const Header = () => {
             </Button>
             
             <Button variant="outline" className="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 border-red-200 dark:border-red-800 hover:bg-red-200">
-              Emergency Help
+              {ButtonTexts.emergencyHelp[language]}
             </Button>
           </div>
 
@@ -100,12 +100,16 @@ const Header = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-white dark:bg-moroccan-dark border-t py-4 px-4 animate-fade-in">
           <nav className="flex flex-col space-y-4">
-            <Link to="/" className="font-medium px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" onClick={toggleMenu}>Accueil</Link>
-            <Link to="/tickets" className="font-medium px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" onClick={toggleMenu}>Billets</Link>
-            <Link to="/matches" className="font-medium px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" onClick={toggleMenu}>Matchs</Link>
-            <Link to="/tourism" className="font-medium px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" onClick={toggleMenu}>Tourisme</Link>
-            <Link to="/map" className="font-medium px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800" onClick={toggleMenu}>Carte</Link>
-            
+            {NavigationLinks.map((link) => (
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                className="font-medium hover:text-moroccan-red transition-colors"
+                onClick={toggleMenu} // for mobile
+              >
+                {link.name[language]}
+              </Link>
+            ))}
             <div className="flex items-center justify-between pt-4 border-t">
               <Button 
                 variant="ghost" 
@@ -117,7 +121,7 @@ const Header = () => {
               </Button>
               
               <Button variant="outline" size="sm" className="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 border-red-200 dark:border-red-800">
-                Emergency Help
+                {ButtonTexts.emergencyHelp[language]}
               </Button>
             </div>
           </nav>

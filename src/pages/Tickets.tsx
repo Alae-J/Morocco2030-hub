@@ -7,11 +7,14 @@ import { Filter, Calendar, Map, Search, ShoppingCart } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
-import { TicketHero, TicketTabs, TicketMatches, TicketInfo } from "@/helpers/Helper";
+import { TicketHero, TicketTabs, TicketMatches, TicketInfo, TicketTexts } from "@/helpers/Helper";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Tickets = () => {
   const [activeTab, setActiveTab] = useState('upcoming');
   const [cartCount, setCartCount] = useState(0);
+
+  const { language } = useLanguage();
   
 
   const addToCart = () => {
@@ -27,9 +30,9 @@ const Tickets = () => {
         {/* Hero Banner */}
         <div className="bg-moroccan-red text-white py-12">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{TicketHero.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{TicketHero.title[language]}</h1>
             <p className="max-w-2xl mx-auto opacity-90">
-              {TicketHero.description}
+              {TicketHero.description[language]}
             </p>
           </div>
         </div>
@@ -42,31 +45,31 @@ const Tickets = () => {
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                   <Input 
-                    placeholder="Rechercher des matchs, équipes..." 
+                    placeholder={TicketTexts.searchPlaceholder[language]} 
                     className="pl-10"
                   />
                 </div>
                 
                 <Button variant="outline" className="flex items-center gap-2">
                   <Filter size={16} />
-                  <span className="hidden md:inline">Filtres</span>
+                  <span className="hidden md:inline">{TicketTexts.filters[language]}</span>
                 </Button>
               </div>
               
               <div className="flex gap-2">
                 <Button variant="outline" className="flex items-center gap-2">
                   <Calendar size={16} />
-                  <span>Date</span>
+                  <span>{TicketTexts.date[language]}</span>
                 </Button>
                 
                 <Button variant="outline" className="flex items-center gap-2">
                   <Map size={16} />
-                  <span>Lieu</span>
+                  <span>{TicketTexts.location[language]}</span>
                 </Button>
                 
                 <Button variant="default" className="bg-moroccan-red relative">
                   <ShoppingCart size={18} />
-                  <span className="ml-2 hidden md:inline">Panier</span>
+                  <span className="ml-2 hidden md:inline">{TicketTexts.cart[language]}</span>
                   {cartCount > 0 && (
                     <span className="absolute -top-2 -right-2 bg-moroccan-green text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                       {cartCount}
@@ -86,25 +89,25 @@ const Tickets = () => {
                 className={`py-4 px-6 font-medium text-sm border-b-2 ${activeTab === 'upcoming' ? 'border-moroccan-red text-moroccan-red' : 'border-transparent text-gray-600 dark:text-gray-400'}`}
                 onClick={() => setActiveTab('upcoming')}
               >
-                {TicketTabs.upcoming}
+                {TicketTabs.upcoming[language]}
               </button>
               <button 
                 className={`py-4 px-6 font-medium text-sm border-b-2 ${activeTab === 'groups' ? 'border-moroccan-red text-moroccan-red' : 'border-transparent text-gray-600 dark:text-gray-400'}`}
                 onClick={() => setActiveTab('groups')}
               >
-                {TicketTabs.groups}
+                {TicketTabs.groups[language]}
               </button>
               <button 
                 className={`py-4 px-6 font-medium text-sm border-b-2 ${activeTab === 'knockout' ? 'border-moroccan-red text-moroccan-red' : 'border-transparent text-gray-600 dark:text-gray-400'}`}
                 onClick={() => setActiveTab('knockout')}
               >
-                {TicketTabs.knockout}
+                {TicketTabs.knockout[language]}
               </button>
               <button 
                 className={`py-4 px-6 font-medium text-sm border-b-2 ${activeTab === 'final' ? 'border-moroccan-red text-moroccan-red' : 'border-transparent text-gray-600 dark:text-gray-400'}`}
                 onClick={() => setActiveTab('final')}
               >
-                {TicketTabs.final}
+                {TicketTabs.final[language]}
               </button>
             </div>
           </div>
@@ -120,9 +123,9 @@ const Tickets = () => {
                     {/* Date & Location */}
                     <div className="md:col-span-1">
                       <div className="flex flex-col">
-                        <div className="font-medium text-moroccan-red">{match.date}</div>
+                        <div className="font-medium text-moroccan-red">{match.date[language]}</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400">{match.time}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{match.stadium}, {match.city}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">{match.stadium[language]}, {match.city[language]}</div>
                       </div>
                     </div>
                     
@@ -131,14 +134,14 @@ const Tickets = () => {
                       <div className="flex items-center justify-center">
                         <div className="flex flex-col items-center">
                           <span className="text-3xl">{match.team1Flag}</span>
-                          <span className="font-medium mt-1">{match.team1}</span>
+                          <span className="font-medium mt-1">{match.team1[language]}</span>
                         </div>
                         
-                        <div className="mx-6 text-lg font-bold">VS</div>
+                        <div className="mx-6 text-lg font-bold">{TicketTexts.vs[language]}</div>
                         
                         <div className="flex flex-col items-center">
                           <span className="text-3xl">{match.team2Flag}</span>
-                          <span className="font-medium mt-1">{match.team2}</span>
+                          <span className="font-medium mt-1">{match.team2[language]}</span>
                         </div>
                       </div>
                     </div>
@@ -147,15 +150,15 @@ const Tickets = () => {
                     <div className="md:col-span-1">
                       <div className="flex flex-col space-y-2">
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">Catégorie 1</span>
+                          <span className="text-sm">{TicketTexts.category1[language]}</span>
                           <span className="font-medium">{match.prices.category1} MAD</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">Catégorie 2</span>
+                          <span className="text-sm">{TicketTexts.category2[language]}</span>
                           <span className="font-medium">{match.prices.category2} MAD</span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm">Catégorie 3</span>
+                          <span className="text-sm">{TicketTexts.category3[language]}</span>
                           <span className="font-medium">{match.prices.category3} MAD</span>
                         </div>
                       </div>
@@ -165,10 +168,10 @@ const Tickets = () => {
                     <div className="md:col-span-1">
                       <div className="flex flex-col space-y-2">
                         <button onClick={addToCart} className="py-2 bg-moroccan-red text-white rounded-md font-medium hover:bg-opacity-90 transition-colors">
-                          Acheter
+                          {TicketTexts.buy[language]}
                         </button>
                         <button className="py-2 bg-transparent border border-moroccan-red text-moroccan-red rounded-md font-medium hover:bg-moroccan-red/5 transition-colors">
-                          Détails
+                          {TicketTexts.details[language]}
                         </button>
                       </div>
                     </div>
@@ -182,34 +185,34 @@ const Tickets = () => {
         {/* Info Section */}
         <section className="py-12 bg-white dark:bg-moroccan-dark">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6 text-center">Informations sur les billets</h2>
+            <h2 className="text-2xl font-bold mb-6 text-center">{TicketTexts.ticketInfoTitle[language]}</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="bg-gray-50 dark:bg-moroccan-dark/70 p-6 rounded-xl">
-                <h3 className="font-bold text-lg mb-3 text-moroccan-red">{TicketInfo.categories.title}</h3>
+                <h3 className="font-bold text-lg mb-3 text-moroccan-red">{TicketInfo.categories.title[language]}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                  {TicketInfo.categories.description}
+                  {TicketInfo.categories.description[language]}
                 </p>
               </div>
               
               <div className="bg-gray-50 dark:bg-moroccan-dark/70 p-6 rounded-xl">
-                <h3 className="font-bold text-lg mb-3 text-moroccan-red">{TicketInfo.cancellation.title}</h3>
+                <h3 className="font-bold text-lg mb-3 text-moroccan-red">{TicketInfo.cancellation.title[language]}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                {TicketInfo.cancellation.description}
+                {TicketInfo.cancellation.description[language]}
                 </p>
               </div>
               
               <div className="bg-gray-50 dark:bg-moroccan-dark/70 p-6 rounded-xl">
-                <h3 className="font-bold text-lg mb-3 text-moroccan-red">{TicketInfo.access.title}</h3>
+                <h3 className="font-bold text-lg mb-3 text-moroccan-red">{TicketInfo.access.title[language]}</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300">
-                {TicketInfo.access.description}
+                {TicketInfo.access.description[language]}
                 </p>
               </div>
             </div>
             
             <div className="mt-10 text-center">
               <p className="text-sm text-gray-500 dark:text-gray-400">
-              {TicketInfo.customerSupport}
+              {TicketInfo.customerSupport[language]}
               </p>
             </div>
           </div>

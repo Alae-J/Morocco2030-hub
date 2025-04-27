@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import AppRoutes from "../routes/Routes";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 const queryClient = new QueryClient();
 
@@ -23,9 +24,11 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
+        <LanguageProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

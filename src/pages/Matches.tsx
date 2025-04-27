@@ -6,11 +6,12 @@ import NewsTicker from '../components/NewsTicker';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar, Flag, Globe, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
-import { MatchesHero, MatchesTabs, MatchesCalendarData, MatchesNews, MatchesGroups, LiveScores } from "@/helpers/Helper";
+import { MatchesHero, MatchesTabs, MatchesCalendarData, MatchesNews, MatchesGroups, LiveScores, groupTexts, MatchesTexts } from "@/helpers/Helper";
+import { useLanguage } from "@/context/LanguageContext";
 
 const Matches = () => {
   const [selectedTab, setSelectedTab] = useState('calendar');
-  
+  const { language } = useLanguage();
   
   return (
     <div className="min-h-screen flex flex-col">
@@ -21,9 +22,9 @@ const Matches = () => {
         {/* Hero Banner */}
         <div className="bg-moroccan-red text-white py-12">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">{MatchesHero.title}</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{MatchesHero.title[language]}</h1>
             <p className="max-w-2xl mx-auto opacity-90">
-              {MatchesHero.description}
+              {MatchesHero.description[language]}
             </p>
           </div>
         </div>
@@ -35,15 +36,15 @@ const Matches = () => {
               <TabsList className="grid w-full grid-cols-3">
                 <TabsTrigger value="calendar" className="flex items-center gap-2">
                   <Calendar size={16} />
-                  <span>{MatchesTabs.calendar}</span>
+                  <span>{MatchesTabs.calendar[language]}</span>
                 </TabsTrigger>
                 <TabsTrigger value="groups" className="flex items-center gap-2">
                   <Flag size={16} />
-                  <span>{MatchesTabs.groups}</span>
+                  <span>{MatchesTabs.groups[language]}</span>
                 </TabsTrigger>
                 <TabsTrigger value="news" className="flex items-center gap-2">
                   <Globe size={16} />
-                  <span>{MatchesTabs.news}</span>
+                  <span>{MatchesTabs.news[language]}</span>
                 </TabsTrigger>
               </TabsList>
 
@@ -54,7 +55,7 @@ const Matches = () => {
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
                       <Input 
-                        placeholder="Rechercher par équipe, ville ou stade..." 
+                        placeholder={MatchesTexts.searchPlaceholder[language]}
                         className="pl-10"
                       />
                     </div>
@@ -70,26 +71,26 @@ const Matches = () => {
                               <div className="flex items-center">
                                 <div className="w-16 text-center">
                                   <div className="font-medium">{match.time}</div>
-                                  <div className="text-xs px-2 py-0.5 bg-moroccan-red/10 text-moroccan-red rounded-full mt-1">Groupe {match.group}</div>
+                                  <div className="text-xs px-2 py-0.5 bg-moroccan-red/10 text-moroccan-red rounded-full mt-1">{groupTexts[language]} {match.group}</div>
                                 </div>
                                 
                                 <div className="flex-1 flex items-center justify-center">
                                   <div className="flex flex-col items-center w-24">
                                     <span className="text-3xl">{match.team1Flag}</span>
-                                    <span className="font-medium text-sm mt-1">{match.team1}</span>
+                                    <span className="font-medium text-sm mt-1">{match.team1[language]}</span>
                                   </div>
                                   
-                                  <div className="mx-4 text-lg font-bold">VS</div>
+                                  <div className="mx-4 text-lg font-bold">{MatchesTexts.vs[language]}</div>
                                   
                                   <div className="flex flex-col items-center w-24">
                                     <span className="text-3xl">{match.team2Flag}</span>
-                                    <span className="font-medium text-sm mt-1">{match.team2}</span>
+                                    <span className="font-medium text-sm mt-1">{match.team2[language]}</span>
                                   </div>
                                 </div>
                                 
                                 <div className="w-40 text-center">
-                                  <div className="text-sm">{match.stadium}</div>
-                                  <div className="text-xs text-gray-500 dark:text-gray-400">{match.city}</div>
+                                  <div className="text-sm">{match.stadium[language]}</div>
+                                  <div className="text-xs text-gray-500 dark:text-gray-400">{match.city[language]}</div>
                                 </div>
                               </div>
                             </div>
@@ -108,21 +109,21 @@ const Matches = () => {
                     {Object.entries(MatchesGroups).map(([group, teams]) => (
                       <div key={group} className="card-morocco">
                         <div className="p-4 border-b">
-                          <h3 className="font-bold">Groupe {group}</h3>
+                          <h3 className="font-bold">{groupTexts[language]} {group}</h3>
                         </div>
                         <div className="overflow-x-auto">
                           <table className="w-full">
                             <thead>
                               <tr className="bg-gray-50 dark:bg-moroccan-dark/70 text-sm">
-                                <th className="py-2 px-4 text-left">Équipe</th>
-                                <th className="py-2 px-2 text-center">Pts</th>
-                                <th className="py-2 px-2 text-center">J</th>
-                                <th className="py-2 px-2 text-center">G</th>
-                                <th className="py-2 px-2 text-center">N</th>
-                                <th className="py-2 px-2 text-center">P</th>
-                                <th className="py-2 px-2 text-center">BP</th>
-                                <th className="py-2 px-2 text-center">BC</th>
-                                <th className="py-2 px-2 text-center">+/-</th>
+                                <th className="py-2 px-4 text-left">{MatchesTexts.tableHeaders.team[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.points[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.played[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.won[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.draw[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.lost[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.goalsFor[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.goalsAgainst[language]}</th>
+                                <th className="py-2 px-2 text-center">{MatchesTexts.tableHeaders.goalDifference[language]}</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -131,7 +132,7 @@ const Matches = () => {
                                   <td className="py-3 px-4">
                                     <div className="flex items-center">
                                       <span className="mr-2">{team.flag}</span>
-                                      <span className="font-medium">{team.team}</span>
+                                      <span className="font-medium">{team.team[language]}</span>
                                     </div>
                                   </td>
                                   <td className="py-3 px-2 text-center font-bold">{team.points}</td>
@@ -162,16 +163,16 @@ const Matches = () => {
                         <div className="md:w-1/3 h-48 md:h-auto">
                           <img 
                             src={item.image} 
-                            alt={item.title} 
+                            alt={item.title[language]} 
                             className="w-full h-full object-cover"
                           />
                         </div>
                         <div className="p-4 md:w-2/3 flex flex-col">
-                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">{item.date}</div>
-                          <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 flex-grow">{item.excerpt}</p>
+                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">{item.date[language]}</div>
+                          <h3 className="font-bold text-lg mb-2">{item.title[language]}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-300 flex-grow">{item.excerpt[language]}</p>
                           <button className="mt-4 text-moroccan-red font-medium hover:underline text-left">
-                            Lire l'article complet
+                            {MatchesTexts.readMore[language]}
                           </button>
                         </div>
                       </div>
@@ -186,14 +187,14 @@ const Matches = () => {
         {/* Live Scores (Placeholder) */}
         <section className="py-10 bg-gray-50 dark:bg-moroccan-dark/80">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6">{LiveScores.LiveScoresTitle}</h2>
+            <h2 className="text-2xl font-bold mb-6">{LiveScores.LiveScoresTitle[language]}</h2>
             
             <div className="bg-white dark:bg-moroccan-dark shadow-md rounded-xl p-6 text-center">
               <div className="text-lg">
-                {LiveScores.LiveScoresTexts.noMatch}
+                {LiveScores.LiveScoresTexts.noMatch[language]}
               </div>
               <p className="text-gray-500 dark:text-gray-400 mt-2">
-                {LiveScores.LiveScoresTexts.info}
+                {LiveScores.LiveScoresTexts.info[language]}
               </p>
             </div>
           </div>

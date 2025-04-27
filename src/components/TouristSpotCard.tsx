@@ -1,6 +1,7 @@
-
 import React from 'react';
 import { Star, MapPin, Info } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
+import { TouristSpotCardTexts } from '@/helpers/Helper';
 
 interface TouristSpotCardProps {
   name: string;
@@ -19,6 +20,8 @@ const TouristSpotCard: React.FC<TouristSpotCardProps> = ({
   description,
   category
 }) => {
+  const { language } = useLanguage();
+
   return (
     <div className="card-morocco h-full flex flex-col">
       <div className="relative h-48 overflow-hidden">
@@ -51,11 +54,11 @@ const TouristSpotCard: React.FC<TouristSpotCardProps> = ({
         <div className="flex justify-between items-center mt-auto">
           <button className="text-moroccan-red font-medium text-sm flex items-center">
             <Info size={14} className="mr-1" />
-            Plus d'infos
+            {TouristSpotCardTexts.moreInfo[language]}
           </button>
           
           <button className="bg-moroccan-green text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors">
-            Itinéraire
+            {TouristSpotCardTexts.itinerary[language]}
           </button>
         </div>
       </div>
