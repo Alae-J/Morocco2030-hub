@@ -10,12 +10,13 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Cities, TourismHero, TourismCategories, TourismSpots, TourismSectionTitles, TourismCulturalExperiences, TourismTexts } from "@/helpers/Helper";
 import { useLanguage } from "@/context/LanguageContext";
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import ChatBot from '@/components/ChatBox';
 
 
 const Tourism = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { language } = useLanguage();
+  const [searchTerm, setSearchTerm] = useState('');
 
   const getCategoryIcon = (category) => {
     switch(category) {
@@ -73,14 +74,16 @@ const Tourism = () => {
                 <Input 
                   placeholder={TourismTexts.searchPlaceholder[language]} 
                   className="pl-10"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
               
               <div className="flex gap-2">
-                <Button variant="outline" className="flex items-center gap-2">
+                {/* <Button variant="outline" className="flex items-center gap-2">
                   <Filter size={16} />
                   <span>{TourismTexts.filters[language]}</span>
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>
@@ -104,9 +107,14 @@ const Tourism = () => {
               </TabsList>
 
               {TourismCategories.map((category) => {
-                const filteredSpots = category.value === 'all' 
-                  ? TourismSpots 
-                  : TourismSpots.filter((spot) => spot.category === category.value);
+                const filteredSpots = TourismSpots.filter((spot) => {
+                  const matchesCategory = category.value === 'all' || spot.category === category.value;
+                  const matchesSearch = spot.name[language].toLowerCase().includes(searchTerm.toLowerCase()) || 
+                                        spot.location[language].toLowerCase().includes(searchTerm.toLowerCase());
+                
+                  return matchesCategory && matchesSearch;
+                });
+                
 
                 return (
                   <TabsContent key={category.value} value={category.value}>
@@ -191,6 +199,7 @@ const Tourism = () => {
       </main>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 };

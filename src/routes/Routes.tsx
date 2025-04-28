@@ -5,8 +5,10 @@ import Matches from "@/pages/Matches";
 import Tourism from "@/pages/Tourism";
 import MapPage from "@/pages/MapPage";
 import NotFound from "@/pages/NotFound";
+import BuyTicket from "@/pages/BuyTicket";
+
 import Auth from "@/pages/auth";
-import PrivateRoute from "@/components/PrivateRoute"; // <-- you must import it
+import PrivateRoute from "@/components/PrivateRoute";
 
 const AppRoutes = () => {
   return (
@@ -27,6 +29,12 @@ const AppRoutes = () => {
           <Matches />
         </PrivateRoute>
       } />
+       <Route path="/buy-ticket/:matchId" element={
+        <PrivateRoute>
+          <BuyTicket />
+        </PrivateRoute>
+      } />
+      
       <Route path="/tourism" element={
         <PrivateRoute>
           <Tourism />
@@ -37,7 +45,6 @@ const AppRoutes = () => {
           <MapPage />
         </PrivateRoute>
       } />
-
       {/* Public Routes */}
       <Route path="/auth" element={<Auth />} />
 
@@ -45,6 +52,6 @@ const AppRoutes = () => {
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
-};
+
 
 export default AppRoutes;

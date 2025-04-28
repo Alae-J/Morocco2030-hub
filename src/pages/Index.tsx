@@ -10,6 +10,7 @@ import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { seeAllTexts, SectionTitles, NewsletterText, Cities, UpcomingMatches, CountdownNumbers, CountdownLabels } from "@/helpers/Helper";
 import { useLanguage } from "@/context/LanguageContext";
+import ChatBot from "../components/ChatBox";
 
 const Index = () => {
 
@@ -151,6 +152,8 @@ const Index = () => {
       </main>
 
       <Footer />
+      <ChatBot />
+
     </div>
   );
 };

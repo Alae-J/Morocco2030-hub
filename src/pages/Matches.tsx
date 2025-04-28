@@ -9,11 +9,13 @@ import { Input } from '@/components/ui/input';
 import { MatchesHero, MatchesTabs, MatchesCalendarData, MatchesNews, MatchesGroups, LiveScores, groupTexts, MatchesTexts } from "@/helpers/Helper";
 import { useLanguage } from "@/context/LanguageContext";
 import { fetchFootballNews } from '@/service/fetchNews';
+import ChatBot from '@/components/ChatBox';
 
 const Matches = () => {
   const [selectedTab, setSelectedTab] = useState('calendar');
   const { language } = useLanguage();
-  
+  const [searchTerm, setSearchTerm] = useState('');
+
   const [newsArticles, setNewsArticles] = useState([]);
 
   useEffect(() => {
@@ -70,48 +72,68 @@ const Matches = () => {
                       <Input 
                         placeholder={MatchesTexts.searchPlaceholder[language]}
                         className="pl-10"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                       />
                     </div>
                   </div>
 
                   <div className="space-y-8">
-                    {Object.entries(MatchesCalendarData).map(([date, matches]) => (
-                      <div key={date}>
-                        <h3 className="text-lg font-bold mb-4 py-2 border-b">{date}</h3>
-                        <div className="space-y-4">
-                          {matches.map((match, idx) => (
-                            <div key={idx} className="card-morocco p-4">
-                              <div className="flex items-center">
-                                <div className="w-16 text-center">
-                                  <div className="font-medium">{match.time}</div>
-                                  <div className="text-xs px-2 py-0.5 bg-moroccan-red/10 text-moroccan-red rounded-full mt-1">{groupTexts[language]} {match.group}</div>
-                                </div>
-                                
-                                <div className="flex-1 flex items-center justify-center">
-                                  <div className="flex flex-col items-center w-24">
-                                    <span className="text-3xl">{match.team1Flag}</span>
-                                    <span className="font-medium text-sm mt-1">{match.team1[language]}</span>
-                                  </div>
-                                  
-                                  <div className="mx-4 text-lg font-bold">{MatchesTexts.vs[language]}</div>
-                                  
-                                  <div className="flex flex-col items-center w-24">
-                                    <span className="text-3xl">{match.team2Flag}</span>
-                                    <span className="font-medium text-sm mt-1">{match.team2[language]}</span>
-                                  </div>
-                                </div>
-                                
-                                <div className="w-40 text-center">
-                                  <div className="text-sm">{match.stadium[language]}</div>
-                                  <div className="text-xs text-gray-500 dark:text-gray-400">{match.city[language]}</div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
+  {Object.entries(MatchesCalendarData).map(([date, matches]) => {
+    const query = searchTerm.toLowerCase();
+
+    // filter matches based on search term
+    const filteredMatches = matches.filter((match) => 
+      match.team1[language].toLowerCase().includes(query) ||
+      match.team2[language].toLowerCase().includes(query) ||
+      match.city[language].toLowerCase().includes(query) ||
+      match.stadium[language].toLowerCase().includes(query)
+    );
+
+    // if no matches for this date, skip it
+    if (filteredMatches.length === 0) return null;
+
+    return (
+      <div key={date}>
+        <h3 className="text-lg font-bold mb-4 py-2 border-b">{date}</h3>
+        <div className="space-y-4">
+          {filteredMatches.map((match, idx) => (
+            <div key={idx} className="card-morocco p-4">
+              <div className="flex items-center">
+                <div className="w-16 text-center">
+                  <div className="font-medium">{match.time}</div>
+                  <div className="text-xs px-2 py-0.5 bg-moroccan-red/10 text-moroccan-red rounded-full mt-1">
+                    {groupTexts[language]} {match.group}
                   </div>
+                </div>
+
+                <div className="flex-1 flex items-center justify-center">
+                  <div className="flex flex-col items-center w-24">
+                    <span className="text-3xl">{match.team1Flag}</span>
+                    <span className="font-medium text-sm mt-1">{match.team1[language]}</span>
+                  </div>
+
+                  <div className="mx-4 text-lg font-bold">{MatchesTexts.vs[language]}</div>
+
+                  <div className="flex flex-col items-center w-24">
+                    <span className="text-3xl">{match.team2Flag}</span>
+                    <span className="font-medium text-sm mt-1">{match.team2[language]}</span>
+                  </div>
+                </div>
+
+                <div className="w-40 text-center">
+                  <div className="text-sm">{match.stadium[language]}</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400">{match.city[language]}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
                 </div>
               </TabsContent>
 
@@ -230,6 +252,7 @@ const Matches = () => {
       </main>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 };
