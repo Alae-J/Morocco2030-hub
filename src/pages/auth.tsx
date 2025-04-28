@@ -20,10 +20,13 @@ const Auth = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isLogin) {
-        signInWithEmailAndPassword(auth, email, password)
+      signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
           console.log("User signed in:", userCredential.user);
-          navigate("/");  // <-- REDIRECT TO HOME
+          localStorage.setItem("token", userCredential.user.uid); // Save token ✅
+          localStorage.setItem("loginTime", Date.now().toString()); // <- store login timestamp
+
+          navigate("/"); // Redirect to home
         })
         .catch((error) => {
           setError(error.message);
@@ -34,16 +37,19 @@ const Auth = () => {
         return;
       }
       createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log("User created:", userCredential.user);
-        navigate("/");  // <-- REDIRECT TO HOME
-      })
-      .catch((error) => {
-        setError(error.message);
-      });
+        .then((userCredential) => {
+          console.log("User created:", userCredential.user);
+          localStorage.setItem("token", userCredential.user.uid); // Save token ✅
+          localStorage.setItem("loginTime", Date.now().toString()); // <- store login timestamp
+
+          navigate("/"); // Redirect to home
+        })
+        .catch((error) => {
+          setError(error.message);
+        });
     }
   };
-
+  
   const toggleView = () => {
     setIsLogin(!isLogin);
     setEmail('');
