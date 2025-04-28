@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NewsTicker from '../components/NewsTicker';
@@ -8,11 +8,24 @@ import { Calendar, Flag, Globe, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { MatchesHero, MatchesTabs, MatchesCalendarData, MatchesNews, MatchesGroups, LiveScores, groupTexts, MatchesTexts } from "@/helpers/Helper";
 import { useLanguage } from "@/context/LanguageContext";
+import { fetchFootballNews } from '@/service/fetchNews';
 
 const Matches = () => {
   const [selectedTab, setSelectedTab] = useState('calendar');
   const { language } = useLanguage();
   
+  const [newsArticles, setNewsArticles] = useState([]);
+
+  useEffect(() => {
+    const loadNews = async () => {
+      const news = await fetchFootballNews();
+      setNewsArticles(news);
+      console.log(news);
+    };
+    
+    loadNews();
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
@@ -158,22 +171,37 @@ const Matches = () => {
               <TabsContent value="news">
                 <div className="py-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {MatchesNews.map((item) => (
-                      <div key={item.id} className="card-morocco flex flex-col md:flex-row overflow-hidden">
+                    {newsArticles.map((item, index) => (
+                      <div key={item.article_id || index} className="card-morocco flex flex-col md:flex-row overflow-hidden">
                         <div className="md:w-1/3 h-48 md:h-auto">
-                          <img 
-                            src={item.image} 
-                            alt={item.title[language]} 
-                            className="w-full h-full object-cover"
-                          />
+                          {item.image_url ? (
+                            <img 
+                              src={item.image_url} 
+                              alt={item.title} 
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-gray-200 dark:bg-gray-700 text-gray-500">
+                              No Image
+                            </div>
+                          )}
                         </div>
                         <div className="p-4 md:w-2/3 flex flex-col">
-                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">{item.date[language]}</div>
-                          <h3 className="font-bold text-lg mb-2">{item.title[language]}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-300 flex-grow">{item.excerpt[language]}</p>
-                          <button className="mt-4 text-moroccan-red font-medium hover:underline text-left">
+                          <div className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            {new Date(item.pubDate).toLocaleDateString(language === 'FR' ? 'fr-FR' : 'en-US')}
+                          </div>
+                          <h3 className="font-bold text-lg mb-2">{item.title}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-300 flex-grow">
+                            {item.description}
+                          </p>
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-4 text-moroccan-red font-medium hover:underline text-left"
+                          >
                             {MatchesTexts.readMore[language]}
-                          </button>
+                          </a>
                         </div>
                       </div>
                     ))}
