@@ -5,12 +5,14 @@ import Matches from "@/pages/Matches";
 import Tourism from "@/pages/Tourism";
 import MapPage from "@/pages/MapPage";
 import NotFound from "@/pages/NotFound";
+import BuyTicket from "@/pages/BuyTicket";
 
 const AppRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/tickets" element={<Tickets />} />
+            <Route path="/buy-ticket/:matchId" element={<BuyTicket />} />
             <Route path="/matches" element={<Matches />} />
             <Route path="/tourism" element={<Tourism />} />
             <Route path="/map" element={<MapPage />} />

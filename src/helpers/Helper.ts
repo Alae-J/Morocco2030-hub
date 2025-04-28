@@ -204,10 +204,15 @@ export const TicketTexts = {
     vs: {
         FR: "VS",
         EN: "VS"
+    },
+    noResults: {
+        FR: "Aucun match trouvé.",
+        EN: "No matches found."
     }
 };
 
 export const TicketTabs = {
+    all: { FR: "Tous", EN: "All"},
     upcoming: { FR: "Matchs à venir", EN: "Upcoming Matches" },
     groups: { FR: "Phase de groupes", EN: "Group Stage" },
     knockout: { FR: "Phase éliminatoire", EN: "Knockout Stage" },
@@ -229,7 +234,13 @@ export const TicketMatches = [
             category1: 1500,
             category2: 1000,
             category3: 500
-        }
+        },
+        stage: "upcoming",
+        categories: [
+            { id: 1, name: { FR: "Catégorie 1", EN: "Category 1" }, price: 1500 },
+            { id: 2, name: { FR: "Catégorie 2", EN: "Category 2" }, price: 1000 },
+            { id: 3, name: { FR: "Catégorie 3", EN: "Category 3" }, price: 500 }
+        ]
     },
     {
         id: 2,
@@ -245,7 +256,13 @@ export const TicketMatches = [
             category1: 1800,
             category2: 1200,
             category3: 600
-        }
+        },
+        stage: "groups",
+        categories: [
+            { id: 1, name: { FR: "Catégorie 1", EN: "Category 1" }, price: 1800 },
+            { id: 2, name: { FR: "Catégorie 2", EN: "Category 2" }, price: 1200 },
+            { id: 3, name: { FR: "Catégorie 3", EN: "Category 3" }, price: 600 }
+        ]
     },
     {
         id: 3,
@@ -261,7 +278,13 @@ export const TicketMatches = [
             category1: 2000,
             category2: 1500,
             category3: 800
-        }
+        },
+        stage: "groups",
+        categories: [
+            { id: 1, name: { FR: "Catégorie 1", EN: "Category 1" }, price: 2000 },
+            { id: 2, name: { FR: "Catégorie 2", EN: "Category 2" }, price: 1500 },
+            { id: 3, name: { FR: "Catégorie 3", EN: "Category 3" }, price: 800 }
+        ]
     },
     {
         id: 4,
@@ -277,7 +300,13 @@ export const TicketMatches = [
             category1: 1600,
             category2: 1100,
             category3: 550
-        }
+        },
+        stage: "knockout",
+        categories: [
+            { id: 1, name: { FR: "Catégorie 1", EN: "Category 1" }, price: 1600 },
+            { id: 2, name: { FR: "Catégorie 2", EN: "Category 2" }, price: 1100 },
+            { id: 3, name: { FR: "Catégorie 3", EN: "Category 3" }, price: 550 }
+        ]
     },
     {
         id: 5,
@@ -293,9 +322,16 @@ export const TicketMatches = [
             category1: 1500,
             category2: 1000,
             category3: 500
-        }
+        },
+        stage: "final",
+        categories: [
+            { id: 1, name: { FR: "Catégorie 1", EN: "Category 1" }, price: 1500 },
+            { id: 2, name: { FR: "Catégorie 2", EN: "Category 2" }, price: 1000 },
+            { id: 3, name: { FR: "Catégorie 3", EN: "Category 3" }, price: 500 }
+        ]
     }
 ];
+
 
 export const TicketInfo = {
     categories: {
@@ -996,4 +1032,45 @@ export const FooterTexts = {
         FR: "&copy; 2025 Morocco2030 Hub. Tous droits réservés.",
         EN: "&copy; 2025 Morocco2030 Hub. All rights reserved."
     }
+};
+
+export const ChatBotTexts = {
+    welcome: {
+        FR: "👋 Bienvenue sur Morocco 2030 Hub ! Prêt à explorer ?",
+        EN: "👋 Welcome to Morocco 2030 Hub! Ready to explore?",
+    },
+    findTickets: {
+        FR: "Vous pouvez trouver des billets pour tous les matchs dans la section \"Billets\". Voulez-vous voir les matchs à venir ?",
+        EN: "You can find tickets for all matches in the \"Tickets\" section. Would you like me to show you the upcoming matches?",
+    },
+    exploreTourism: {
+        FR: "Le Maroc offre de magnifiques destinations touristiques ! De Marrakech à Casablanca, il y a tant à découvrir. Consultez notre section \"Tourisme\".",
+        EN: "Morocco offers beautiful tourist destinations! From Marrakech to Casablanca, there's so much to see. Check our \"Tourism\" section.",
+    },
+    viewMatches: {
+        FR: "Le tournoi proposera des matchs passionnants dans les plus beaux stades du Maroc. Visitez la section \"Matchs\" pour voir tout le programme.",
+        EN: "The tournament will feature exciting matches across Morocco's beautiful stadiums. Visit the \"Matches\" section to see the full schedule.",
+    },
+    help: {
+        FR: "Je peux vous aider à naviguer sur notre plateforme. Sur quoi souhaitez-vous en savoir plus ?",
+        EN: "I can help you navigate our platform. What would you like to know more about?",
+    },
+    unknown: {
+        FR: "Je ne suis pas sûr de comprendre. Pouvez-vous sélectionner une des options ci-dessous ?",
+        EN: "I'm not sure I understand. Can you select one of the options below?",
+    },
+    thanks: {
+        FR: "Merci pour votre message ! Notre équipe vous assistera sous peu. En attendant, vous pouvez explorer ces options :",
+        EN: "Thanks for your message! Our team will assist you shortly. In the meantime, you can explore these options:",
+    },
+    options: [
+        { key: 'find_tickets', EN: "Find Tickets", FR: "Acheter des Billets" },
+        { key: 'explore_tourism', EN: "Explore Tourism", FR: "Explorer le Maroc" },
+        { key: 'view_matches', EN: "View Matches", FR: "Voir les Matchs" },
+        { key: 'help', EN: "Help", FR: "Aide" }
+    ],
+    placeholder: {
+        FR: "Écrivez un message...",
+        EN: "Type a message...",
+    },
 };

@@ -6,6 +6,7 @@ import { MapFilters, MapPOIs, PracticalInfos } from "@/helpers/Helper";
 import { useLanguage } from '@/context/LanguageContext';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import ChatBot from '@/components/ChatBox';
 const MapPage = () => {
   const { language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState(MapFilters[0].value);
@@ -166,6 +167,7 @@ const MapPage = () => {
       </main>
 
       <Footer />
+      <ChatBot />
     </div>
   );
 };
