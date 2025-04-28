@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NewsTicker from '../components/NewsTicker';
 import { MapFilters, MapPOIs, PracticalInfos } from "@/helpers/Helper";
 import { useLanguage } from '@/context/LanguageContext';
-
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 const MapPage = () => {
   const { language } = useLanguage();
   const [activeFilter, setActiveFilter] = useState(MapFilters[0].value);
   const filteredPOIs = MapPOIs[activeFilter] || [];
+  const [position, setPosition] = useState<[number, number] | null>(null);
 
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        setPosition([latitude, longitude]);
+      },
+      (err) => {
+        console.error(err);
+      }
+    );
+  }, []);
   const getFilterTitle = (filter) => {
     switch (filter) {
       case 'stades':
@@ -56,24 +69,24 @@ const MapPage = () => {
         <div className="flex flex-col md:flex-row h-[calc(100vh-180px)]">
           {/* Map */}
           <div className="md:w-3/4 h-full relative">
-            <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-              <img 
-                src="https://images.unsplash.com/photo-1580851935978-f6b4e359da3f?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3"
-                alt="Morocco Map"
-                className="w-full h-full object-cover opacity-50"
-              />
-              <div className="absolute inset-0 flex items-center justify-center flex-col p-4 text-center">
-                <h2 className="text-2xl font-bold mb-4">
-                  {language === 'FR' ? 'Carte Interactive' : 'Interactive Map'}
-                </h2>
-                <p className="max-w-md">
-                  {language === 'FR'
-                    ? "Cette section afficherait normalement une carte interactive MapBox avec les points d'intérêt filtrés ci-dessous."
-                    : "This section would normally display an interactive MapBox map with filtered points of interest below."}
-                </p>
-              </div>
-            </div>
-          </div>
+      <div className="w-full h-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+  {position ? (
+    <MapContainer center={position} zoom={13} style={{ height: "100%", width: "100%" }}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; OpenStreetMap contributors'
+      />
+      <Marker position={position}>
+        <Popup>
+          You are here! 📍
+        </Popup>
+      </Marker>
+    </MapContainer>
+  ) : (
+    <p>Loading your location...</p>
+  )}
+</div>
+    </div>
 
           {/* Points of Interest */}
           <div className="md:w-1/4 h-full bg-white dark:bg-moroccan-dark overflow-y-auto border-l">

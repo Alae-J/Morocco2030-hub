@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import AppRoutes from "../routes/Routes";
 import { LanguageProvider } from "@/context/LanguageContext";
 
+
 const queryClient = new QueryClient();
 
 const App = () => {
