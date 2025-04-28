@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Cities, TourismHero, TourismCategories, TourismSpots, TourismSectionTitles, TourismCulturalExperiences, TourismTexts } from "@/helpers/Helper";
 import { useLanguage } from "@/context/LanguageContext";
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 
 const Tourism = () => {
