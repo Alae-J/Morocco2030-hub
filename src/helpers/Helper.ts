@@ -58,9 +58,10 @@ export const Cities = [
         description: {
             FR: "Découvrez le stade ultramoderne de Casablanca et l'ambiance vibrante de la plus grande ville du Maroc.",
             EN: "Discover Casablanca's state-of-the-art stadium and the vibrant atmosphere of Morocco's largest city."
-        }
         },
-        {
+        url: "https://www.visitmorocco.com/en/casablanca"
+    },
+    {
         name: {
             FR: "Rabat",
             EN: "Rabat",
@@ -69,9 +70,10 @@ export const Cities = [
         description: {
             FR: "Visitez la capitale du royaume, avec son mélange unique d'histoire, de culture et d'architecture moderne.",
             EN: "Visit the kingdom's capital, with its unique blend of history, culture, and modern architecture."
-        }
         },
-        {
+        url: "https://www.visitmorocco.com/en/rabat"
+    },
+    {
         name: {
             FR: "Marrakech",
             EN: "Marrakech",
@@ -80,9 +82,10 @@ export const Cities = [
         description: {
             FR: "Laissez-vous séduire par la ville ocre, ses souks animés et sa place Jemaa el-Fna légendaire.",
             EN: "Let yourself be enchanted by the red city, its bustling souks, and its legendary Jemaa el-Fna square."
-        }
         },
-        {
+        url: "https://www.visitmorocco.com/en/marrakech"
+    },
+    {
         name: {
             FR: "Tanger",
             EN: "Tangier",
@@ -91,40 +94,44 @@ export const Cities = [
         description: {
             FR: "Point de rencontre entre l'Afrique et l'Europe, Tanger offre des vues imprenables sur la Méditerranée.",
             EN: "A meeting point between Africa and Europe, Tangier offers breathtaking views over the Mediterranean."
-        }
+        },
+        url: "https://www.visitmorocco.com/en/tangier"
     }
 ];
-
 
 export const UpcomingMatches = [
     {
-        team1: { FR: "Maroc", EN: "Morocco" },
-        team2: { FR: "Espagne", EN: "Spain" },
-        date: { FR: "15 Juin 2030", EN: "June 15, 2030" },
-        time: "20:00",
-        stadium: { FR: "Stade Mohammed V", EN: "Mohammed V Stadium" },
-        city: { FR: "Casablanca", EN: "Casablanca" },
-        group: "A"
+      id: 1,
+      team1: { FR: "Maroc", EN: "Morocco" },
+      team2: { FR: "Espagne", EN: "Spain" },
+      date: { FR: "15 Juin 2030", EN: "June 15, 2030" },
+      time: "20:00",
+      stadium: { FR: "Stade Mohammed V", EN: "Mohammed V Stadium" },
+      city: { FR: "Casablanca", EN: "Casablanca" },
+      group: "A"
     },
     {
-        team1: { FR: "France", EN: "France" },
-        team2: { FR: "Brésil", EN: "Brazil" },
-        date: { FR: "16 Juin 2030", EN: "June 16, 2030" },
-        time: "17:00",
-        stadium: { FR: "Stade de Rabat", EN: "Rabat Stadium" },
-        city: { FR: "Rabat", EN: "Rabat" },
-        group: "B"
+      id: 2,
+      team1: { FR: "France", EN: "France" },
+      team2: { FR: "Brésil", EN: "Brazil" },
+      date: { FR: "16 Juin 2030", EN: "June 16, 2030" },
+      time: "17:00",
+      stadium: { FR: "Stade de Rabat", EN: "Rabat Stadium" },
+      city: { FR: "Rabat", EN: "Rabat" },
+      group: "B"
     },
     {
-        team1: { FR: "Argentine", EN: "Argentina" },
-        team2: { FR: "Portugal", EN: "Portugal" },
-        date: { FR: "17 Juin 2030", EN: "June 17, 2030" },
-        time: "20:00",
-        stadium: { FR: "Stade de Marrakech", EN: "Marrakech Stadium" },
-        city: { FR: "Marrakech", EN: "Marrakech" },
-        group: "C"
+      id: 3,
+      team1: { FR: "Argentine", EN: "Argentina" },
+      team2: { FR: "Portugal", EN: "Portugal" },
+      date: { FR: "17 Juin 2030", EN: "June 17, 2030" },
+      time: "20:00",
+      stadium: { FR: "Stade de Marrakech", EN: "Marrakech Stadium" },
+      city: { FR: "Marrakech", EN: "Marrakech" },
+      group: "C"
     }
-];
+  ];
+  
 
 export const CountdownNumbers = {
     days: 1825,
@@ -749,33 +756,37 @@ export const TourismSectionTitles = {
 
 export const TourismCulturalExperiences = [
     {
-        title: { FR: "Cuisine Marocaine", EN: "Moroccan Cuisine" },
-        description: {
-            FR: "Participez à des cours de cuisine et apprenez à préparer des tajines, couscous et pâtisseries traditionnelles.",
-            EN: "Take cooking classes and learn how to prepare traditional tajines, couscous, and pastries."
-        },
-        button: { FR: "Réserver un Cours", EN: "Book a Class" },
-        image: "https://images.unsplash.com/photo-1489693420562-e5ea8a8fdcf4?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3"
+      title: { FR: "Cuisine Marocaine", EN: "Moroccan Cuisine" },
+      description: {
+        FR: "Participez à des cours de cuisine et apprenez à préparer des tajines, couscous et pâtisseries traditionnelles.",
+        EN: "Take cooking classes and learn how to prepare traditional tajines, couscous, and pastries."
+      },
+      button: { FR: "Réserver un Cours", EN: "Book a Class" },
+      image: "https://images.unsplash.com/photo-1669542795386-e794632a231f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8VGFqaW5lfGVufDB8fDB8fHww",
+      url: "https://www.cookly.me/search/?q=Morocco"
     },
     {
-        title: { FR: "Artisanat Marocain", EN: "Moroccan Craftsmanship" },
-        description: {
-            FR: "Découvrez le savoir-faire des artisans locaux : poterie, tissage de tapis, travail du cuir et bijouterie.",
-            EN: "Discover the skills of local artisans: pottery, carpet weaving, leatherwork, and jewelry."
-        },
-        button: { FR: "Visiter les Ateliers", EN: "Visit Workshops" },
-        image: "https://images.unsplash.com/photo-1598974357809-112ca5f7e9f9?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3"
+      title: { FR: "Artisanat Marocain", EN: "Moroccan Craftsmanship" },
+      description: {
+        FR: "Découvrez le savoir-faire des artisans locaux : poterie, tissage de tapis, travail du cuir et bijouterie.",
+        EN: "Discover the skills of local artisans: pottery, carpet weaving, leatherwork, and jewelry."
+      },
+      button: { FR: "Visiter les Ateliers", EN: "Visit Workshops" },
+      image: "https://images.unsplash.com/photo-1616089180418-56172f6c3c2b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3VpZGVkJTIwdmlzaXRzJTIwdG8lMjBsb2NhbCUyMGFydGlzYW5zJUUyJTgwJTk5JTIwd29ya3Nob3BzJTIwbW9yb2Njb3xlbnwwfHwwfHx8MA%3D%3D",
+      url: "https://www.viator.com/searchResults/all?text=Fez%20Workshops"
     },
     {
-        title: { FR: "Musique et Danse", EN: "Music and Dance" },
-        description: {
-            FR: "Assistez à des spectacles de musique gnaoua, andalouse et berbère, ainsi qu'à des danses traditionnelles.",
-            EN: "Attend shows featuring Gnaoua, Andalusian, and Berber music along with traditional dances."
-        },
-        button: { FR: "Réserver un Spectacle", EN: "Book a Show" },
-        image: "https://images.unsplash.com/photo-1595646699244-3bfa47a606ac?auto=format&fit=crop&q=80&w=1000&ixlib=rb-4.0.3"
+      title: { FR: "Musique et Danse", EN: "Music and Dance" },
+      description: {
+        FR: "Assistez à des spectacles de musique gnaoua, andalouse et berbère, ainsi qu'à des danses traditionnelles.",
+        EN: "Attend shows featuring Gnaoua, Andalusian, and Berber music along with traditional dances."
+      },
+      button: { FR: "Réserver un Spectacle", EN: "Book a Show" },
+      image: "https://images.unsplash.com/photo-1567981964169-7c2597346322?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fEduYXdhJTJDJTIwQW5kYWx1c2lhbiUyMG9yJTIwQW1hemlnaCUyMG11c2ljJTIwbmlnaHR8ZW58MHx8MHx8fDA%3D",
+      url: "https://museedelamusique.ma/en/soirees-musicales-reservation/"
     }
-];
+  ];
+  
 
 // ===================
 // MapPage SECTION DATA

@@ -1,9 +1,11 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { MatchCardTexts, groupTexts } from '@/helpers/Helper'; // add groupTexts import
+import { MatchCardTexts, groupTexts } from '@/helpers/Helper';
+import { Link } from 'react-router-dom';
 
 interface MatchCardProps {
+  id: number;
   team1: string;
   team2: string;
   date: string;
@@ -14,6 +16,7 @@ interface MatchCardProps {
 }
 
 const MatchCard: React.FC<MatchCardProps> = ({ 
+  id,
   team1, 
   team2, 
   date, 
@@ -33,7 +36,6 @@ const MatchCard: React.FC<MatchCardProps> = ({
           <span>{date} • {time}</span>
         </div>
 
-        {/* Dynamic group */}
         {group && (
           <span className="text-xs font-medium px-2 py-1 bg-moroccan-sand/20 text-moroccan-dark dark:text-moroccan-sand rounded-full">
             {groupTexts[language]} {group}
@@ -65,9 +67,11 @@ const MatchCard: React.FC<MatchCardProps> = ({
         <div className="text-center text-sm text-gray-500 dark:text-gray-400">
           <span>{stadium}, {city}</span>
         </div>
-        <button className="w-full mt-2 py-2 bg-moroccan-red text-white rounded-md font-medium hover:bg-opacity-90 transition-colors">
-          {MatchCardTexts.buyTickets[language]}
-        </button>
+        <Link to={`/buy-ticket/${id}`}>
+          <button className="w-full mt-2 py-2 bg-moroccan-red text-white rounded-md font-medium hover:bg-opacity-90 transition-colors">
+            {MatchCardTexts.buyTickets[language]}
+          </button>
+        </Link>
       </div>
 
     </div>

@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import NewsTicker from '../components/NewsTicker';
@@ -11,12 +10,15 @@ import { Button } from '@/components/ui/button';
 import { Cities, TourismHero, TourismCategories, TourismSpots, TourismSectionTitles, TourismCulturalExperiences, TourismTexts } from "@/helpers/Helper";
 import { useLanguage } from "@/context/LanguageContext";
 import ChatBot from '@/components/ChatBox';
-
+import { fetchSpotsByCategory } from '@/service/fetchTourismSpots';
 
 const Tourism = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const { language } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
+  const [spots, setSpots] = useState([]);
+
+  const categoriesRef = useRef(null);
 
   const getCategoryIcon = (category) => {
     switch(category) {
@@ -27,6 +29,21 @@ const Tourism = () => {
       case 'transport': return <Bus size={20} />;
       default: return <Map size={20} />;
     }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchSpotsByCategory(selectedCategory);
+      setSpots(data);
+    };
+    fetchData();
+  }, [selectedCategory]);
+
+  const scrollToCategories = () => {
+    if (categoriesRef.current) {
+      categoriesRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+    setSelectedCategory('attractions');
   };
 
   return (
@@ -54,12 +71,12 @@ const Tourism = () => {
                 {TourismHero.description[language]}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button className="bg-moroccan-red hover:bg-opacity-90">
+                <Button className="bg-moroccan-red hover:bg-opacity-90" onClick={scrollToCategories}>
                   {TourismTexts.exploreAttractions[language]}
                 </Button>
-                <Button variant="outline" className="bg-white/10 backdrop-blur-sm text-white border-white">
+                {/* <Button variant="outline" className="bg-white/10 backdrop-blur-sm text-white border-white">
                   {TourismTexts.planStay[language]}
-                </Button>
+                </Button> */}
               </div>
             </div>
           </div>
@@ -78,19 +95,12 @@ const Tourism = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              
-              <div className="flex gap-2">
-                {/* <Button variant="outline" className="flex items-center gap-2">
-                  <Filter size={16} />
-                  <span>{TourismTexts.filters[language]}</span>
-                </Button> */}
-              </div>
             </div>
           </div>
         </section>
 
         {/* Categories */}
-        <section className="bg-gray-50 dark:bg-moroccan-dark/80 py-8">
+        <section ref={categoriesRef} className="bg-gray-50 dark:bg-moroccan-dark/80 py-8">
           <div className="container mx-auto px-4">
             <Tabs defaultValue="all" value={selectedCategory} onValueChange={setSelectedCategory}>
               <TabsList className="grid w-full grid-cols-5">
@@ -107,14 +117,13 @@ const Tourism = () => {
               </TabsList>
 
               {TourismCategories.map((category) => {
-                const filteredSpots = TourismSpots.filter((spot) => {
+                const filteredSpots = spots.filter((spot) => {
                   const matchesCategory = category.value === 'all' || spot.category === category.value;
                   const matchesSearch = spot.name[language].toLowerCase().includes(searchTerm.toLowerCase()) || 
                                         spot.location[language].toLowerCase().includes(searchTerm.toLowerCase());
-                
+
                   return matchesCategory && matchesSearch;
                 });
-                
 
                 return (
                   <TabsContent key={category.value} value={category.value}>
@@ -126,7 +135,6 @@ const Tourism = () => {
                           image={spot.image}
                           rating={spot.rating}
                           location={spot.location[language]}
-                          description={spot.description[language]}
                           category={spot.category === 'attractions' ? 'Attraction' : 
                                   spot.category === 'hotels' ? 'Hôtel' : 
                                   spot.category === 'restaurants' ? 'Restaurant' : 'Transport'}
@@ -144,26 +152,29 @@ const Tourism = () => {
         <section className="py-16 bg-white dark:bg-moroccan-dark">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold mb-10">{TourismSectionTitles.hostCities[language]}</h2>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {Cities.map((city, idx) => (
-              <div key={idx} className="relative h-80 rounded-xl overflow-hidden group">
-                <img 
-                  src={city.image}
-                  alt={city.name[language]}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
-                <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-2xl font-bold mb-2">{city.name[language]}</h3>
-                  <p className="text-white/80 text-sm mb-4">{city.description[language]}</p>
-                  <Button className="bg-moroccan-red hover:bg-opacity-90">
-                    {TourismTexts.exploreButton[language]}
-                  </Button>
+              {Cities.map((city, idx) => (
+                <div key={idx} className="relative h-80 rounded-xl overflow-hidden group">
+                  <img 
+                    src={city.image}
+                    alt={city.name[language]}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <h3 className="text-white text-2xl font-bold mb-2">{city.name[language]}</h3>
+                    <p className="text-white/80 text-sm mb-4">{city.description[language]}</p>
+                    <a
+                      href={city.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block bg-moroccan-red text-white px-4 py-2 rounded hover:bg-opacity-90 text-sm font-medium transition-colors"
+                    >
+                      {TourismTexts.exploreButton[language]}
+                    </a>
+                  </div>
                 </div>
-              </div>
-            ))}
-
+              ))}
             </div>
           </div>
         </section>
@@ -175,7 +186,6 @@ const Tourism = () => {
             <p className="text-gray-600 dark:text-gray-300 max-w-3xl mb-10">
               {TourismTexts.culturalExperienceIntro[language]}
             </p>
-            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {TourismCulturalExperiences.map((experience, idx) => (
                 <div key={idx} className="card-morocco p-4 flex flex-col h-full">
@@ -190,7 +200,14 @@ const Tourism = () => {
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 flex-grow">
                     {experience.description[language]}
                   </p>
-                  <Button className="w-full bg-moroccan-green hover:bg-opacity-90">{experience.button[language]}</Button>
+                  <a
+                    href={experience.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center bg-moroccan-green text-white px-3 py-2 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors"
+                  >
+                    {experience.button[language]}
+                  </a>
                 </div>
               ))}
             </div>

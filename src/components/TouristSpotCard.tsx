@@ -7,8 +7,7 @@ interface TouristSpotCardProps {
   name: string;
   image: string;
   rating: number;
-  location: string;
-  description: string;
+  location: string; // used for Google Maps destination
   category: string;
 }
 
@@ -17,10 +16,31 @@ const TouristSpotCard: React.FC<TouristSpotCardProps> = ({
   image,
   rating,
   location,
-  description,
   category
 }) => {
   const { language } = useLanguage();
+
+  const handleItineraryClick = () => {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        const encodedDestination = encodeURIComponent(location);
+        const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${encodedDestination}`;
+        window.open(mapsUrl, '_blank');
+      },
+      (error) => {
+        alert('Unable to retrieve your location. Using approximate location instead.');
+        const encodedDestination = encodeURIComponent(location);
+        const fallbackUrl = `https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=${encodedDestination}`;
+        window.open(fallbackUrl, '_blank');
+      }
+    );
+  };
 
   return (
     <div className="card-morocco h-full flex flex-col">
@@ -49,15 +69,16 @@ const TouristSpotCard: React.FC<TouristSpotCardProps> = ({
           <span>{location}</span>
         </div>
         
-        <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 flex-grow">{description}</p>
-        
         <div className="flex justify-between items-center mt-auto">
           <button className="text-moroccan-red font-medium text-sm flex items-center">
             <Info size={14} className="mr-1" />
             {TouristSpotCardTexts.moreInfo[language]}
           </button>
-          
-          <button className="bg-moroccan-green text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors">
+
+          <button 
+            onClick={handleItineraryClick}
+            className="bg-moroccan-green text-white px-3 py-1.5 rounded-md text-sm font-medium hover:bg-opacity-90 transition-colors"
+          >
             {TouristSpotCardTexts.itinerary[language]}
           </button>
         </div>
