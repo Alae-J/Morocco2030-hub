@@ -15,35 +15,25 @@ const AppRoutes = () => {
     <Routes>
       {/* Protected Routes */}
       <Route path="/" element={
-        <PrivateRoute>
           <Index />
-        </PrivateRoute>
       } />
       <Route path="/tickets" element={
-        <PrivateRoute>
           <Tickets />
-        </PrivateRoute>
       } />
       <Route path="/matches" element={
-        <PrivateRoute>
           <Matches />
-        </PrivateRoute>
       } />
-       <Route path="/buy-ticket/:matchId" element={
+      <Route path="/buy-ticket/:matchId" element={
         <PrivateRoute>
           <BuyTicket />
         </PrivateRoute>
       } />
       
       <Route path="/tourism" element={
-        <PrivateRoute>
           <Tourism />
-        </PrivateRoute>
       } />
       <Route path="/map" element={
-        <PrivateRoute>
           <MapPage />
-        </PrivateRoute>
       } />
       {/* Public Routes */}
       <Route path="/auth" element={<Auth />} />

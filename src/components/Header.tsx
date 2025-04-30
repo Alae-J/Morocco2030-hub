@@ -73,9 +73,14 @@ const Header = () => {
               {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
             </Button>
             
-            <Button variant="outline" className="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 border-red-200 dark:border-red-800 hover:bg-red-200">
-              {ButtonTexts.emergencyHelp[language]}
-            </Button>
+            <Link to="/auth">
+              <Button 
+                variant="outline" 
+                className="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 border-red-200 dark:border-red-800"
+              >
+                {ButtonTexts.login[language]}
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -120,9 +125,15 @@ const Header = () => {
                 <span className="ml-1">{language}</span>
               </Button>
               
-              <Button variant="outline" size="sm" className="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 border-red-200 dark:border-red-800">
-                {ButtonTexts.emergencyHelp[language]}
-              </Button>
+              <Link to="/auth" onClick={toggleMenu}>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="bg-red-100 dark:bg-red-900 text-red-600 dark:text-red-300 border-red-200 dark:border-red-800"
+                >
+                  {ButtonTexts.login[language]}
+                </Button>
+              </Link>
             </div>
           </nav>
         </div>

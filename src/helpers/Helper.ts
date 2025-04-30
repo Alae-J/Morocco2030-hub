@@ -908,9 +908,9 @@ export const NavigationLinks = [
 ];
 
 export const ButtonTexts = {
-    emergencyHelp: {
-        FR: "Aide d'Urgence",
-        EN: "Emergency Help",
+    login: {
+        FR: "Se Connecter",
+        EN: "Login",
     }
 };
 
