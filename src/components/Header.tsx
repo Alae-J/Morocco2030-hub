@@ -5,8 +5,10 @@ import { Sun, Moon, Menu, X, Globe } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { NavigationLinks, ButtonTexts } from '@/helpers/Helper';
 import { useLanguage } from "@/context/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const Header = () => {
+  const user = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { language, toggleLanguage } = useLanguage(); 
@@ -125,7 +127,7 @@ const Header = () => {
                 <span className="ml-1">{language}</span>
               </Button>
               
-              <Link to="/auth" onClick={toggleMenu}>
+              {!user && <Link to="/auth" onClick={toggleMenu}>
                 <Button 
                   variant="outline" 
                   size="sm" 
@@ -133,7 +135,7 @@ const Header = () => {
                 >
                   {ButtonTexts.login[language]}
                 </Button>
-              </Link>
+              </Link>}
             </div>
           </nav>
         </div>
