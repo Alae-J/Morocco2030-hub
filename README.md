@@ -74,3 +74,15 @@ npm run dev
 
 Now open [http://localhost:5173](http://localhost:5173) in your browser to view the app.
 
+---
+
+## 🤝 Contributors
+
+This project was collaboratively built by:
+
+- **Alae Eddine Jahid** – [GitHub](https://github.com/Alae-J)
+- **Anas Elwahabi**
+- **Mohammed Amine Raguig**
+
+We combined our strengths in full-stack development, UI/UX design, and data integration to create an immersive experience for Morocco 2030.
+
